@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2B0B13">
+<title>Manu — Data Engineer &amp; Creative Developer</title>
+<meta name="description" content="Manu — freelance data engineer and creative developer. Data pipelines, AI &amp; RAG systems and interactive portfolios.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#2B0B13}
+a{color:#FFFFFF}a:hover{color:#E5E5E5}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes floatA{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-10px) rotate(-5deg)}}
+@keyframes floatB{0%,100%{transform:translateY(0) rotate(5deg)}50%{transform:translateY(-14px) rotate(6deg)}}
+@keyframes swap{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+@keyframes drawer{from{transform:translateX(100%)}to{transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.shine{background:linear-gradient(100deg,#FFFFFF 40%,#FF9AA6 50%,#FFFFFF 60%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 4s linear infinite}
+@keyframes shine{from{background-position:120% 0}to{background-position:-120% 0}}
+@keyframes drift{0%{transform:translateY(0) scale(1);opacity:0}15%{opacity:.8}100%{transform:translateY(-260px) scale(.4);opacity:0}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(229,9,20,.55)}50%{box-shadow:0 0 0 10px rgba(229,9,20,0)}}
+@keyframes wiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
+.cast .avatar{transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .35s}
+@media (hover:hover){.cast:hover .avatar{transform:scale(1.08);border-color:#E50914}}
+.card{transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .35s,box-shadow .35s}
+@media (hover:hover){.card:hover{transform:translateY(-10px) rotate(-1.2deg);border-color:#E50914;box-shadow:0 18px 36px rgba(0,0,0,.55);outline:none}}
+.card .peek{max-height:0;opacity:0;overflow:hidden;transition:max-height .35s,opacity .35s}
+@media (hover:hover){.card:hover .peek{max-height:60px;opacity:1}}
+.card:focus-visible .peek{max-height:60px;opacity:1}
+.strip::-webkit-scrollbar{height:0}
+.pill{transition:transform .2s,background .2s}
+@media (hover:hover){.pill:hover{transform:translateY(-2px)}}
+.shelf-arrow:disabled{opacity:.35;cursor:default;transform:none}
+@media (hover:hover){.shelf-arrow:not(:disabled):hover{background:#E50914!important;border-color:#E50914!important}}
+</style>
+<style>[hidden]{display:none!important}*,*::before,*::after{box-sizing:border-box}@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+button,a{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.card:focus-visible{border-color:#E50914;outline:none}
+#shelf{scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+#shelf .card{scroll-snap-align:start}
+#shelf .peek{max-height:none}
+@media (hover:none){#shelf .peek{opacity:1;max-height:60px}}
+@media (max-width:640px){
+  .site-nav-links{display:none!important}
+  .site-nav{background:transparent!important;border:0!important;padding:0!important}
+  #top{padding-top:24px!important;padding-bottom:48px!important;gap:32px!important}
+  .now-stack{height:380px!important;flex-basis:100%!important}
+  .now-stack .slide{left:4%!important;right:4%!important;top:40px!important;height:270px!important;padding:22px!important}
+  .now-stack .slide .slide-title{font-size:26px!important}
+  .now-controls{left:4%!important}
+  #shelf{padding-left:20px!important;padding-right:20px!important;scroll-padding-left:20px}
+  #shelf .card{width:78vw!important;max-width:300px}
+  .drawer-panel{width:100%!important}
+}
+
+#projectForm input:focus,#projectForm select:focus,#projectForm textarea:focus{border-color:#E50914!important;box-shadow:0 0 0 3px rgba(229,9,20,.25)}
+#projectForm [aria-invalid="true"]{border-color:#FF9AA6!important}
+#projectForm select option{background:#2B0B13;color:#FFFFFF}
+#projectForm ::placeholder{color:#B88E98}
+@media (max-width:640px){.form-grid{grid-template-columns:minmax(0,1fr)!important}.form-panel{border-radius:18px!important}}
+
+
+body{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.drawer-panel,.form-panel{padding-bottom:env(safe-area-inset-bottom,0px)}
+img,svg{flex-shrink:0}
+
+.foot-link{position:relative;transition:color .25s,background .25s}
+.foot-link::after{content:"";position:absolute;left:12px;right:12px;bottom:6px;height:2px;border-radius:2px;background:#E50914;transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+@media (hover:hover){.foot-link:hover{color:#FFFFFF!important}.foot-link:hover::after{transform:scaleX(1)}}
+.foot-link.is-active{color:#FFFFFF!important;background:rgba(229,9,20,.18)}
+.foot-link.is-active::after{transform:scaleX(1)}
+.foot-link.tap{animation:tapPop .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes tapPop{0%{transform:scale(1)}40%{transform:scale(.9)}100%{transform:scale(1)}}
+.spotlight{position:relative;border-radius:24px;animation:spotlight 1.8s ease-out both}
+@keyframes spotlight{
+  0%{box-shadow:0 0 0 0 rgba(229,9,20,0);background-color:rgba(229,9,20,0)}
+  20%{box-shadow:inset 0 0 0 2px rgba(229,9,20,.9),0 0 70px rgba(229,9,20,.35);background-color:rgba(229,9,20,.10)}
+  55%{box-shadow:inset 0 0 0 2px rgba(255,154,166,.55),0 0 40px rgba(229,9,20,.18);background-color:rgba(229,9,20,.05)}
+  100%{box-shadow:0 0 0 0 rgba(229,9,20,0);background-color:rgba(229,9,20,0)}
+}
+</style>
+</head>
+<body>
+<div style="background: #2B0B13; color: #FFFFFF; font-family: Inter, system-ui, sans-serif; min-height: 100vh; overflow-x: hidden">
+
+  <!-- NAV -->
+  <header style="max-width: 1200px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+    <a href="#top" style="font-family: Outfit, Inter, sans-serif; font-weight: 800; font-size: 24px; text-decoration: none; color: #FFFFFF; letter-spacing: -0.02em">manu<span style="color: #E50914">/</span></a>
+    <nav aria-label="Main" class="site-nav" style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px; background: #3D111C; border: 1px solid #5A1D2B; border-radius: 999px; padding: 4px">
+      <a href="#episodes" class="site-nav-links" style="font-size: 14px; color: #D2D2D2; text-decoration: none; padding: 10px 16px; border-radius: 999px">Episodes</a>
+      <a href="#genres" class="site-nav-links" style="font-size: 14px; color: #D2D2D2; text-decoration: none; padding: 10px 16px; border-radius: 999px">Genres</a>
+      <a href="#contact" class="site-nav-links" style="font-size: 14px; color: #D2D2D2; text-decoration: none; padding: 10px 16px; border-radius: 999px">Contact</a>
+      <a href="#start-project" data-open-form class="pill" style="font-size: 14px; font-weight: 600; color: #FFFFFF; background: #E50914; text-decoration: none; padding: 10px 18px; border-radius: 999px; animation: glow 2.2s ease-in-out infinite">Hire Me</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" style="position: relative; max-width: 1200px; margin: 0 auto; padding: 48px 24px 72px; display: flex; flex-wrap: wrap; align-items: center; gap: 48px">
+    <div aria-hidden="true" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; pointer-events: none; overflow: hidden">
+      <span style="position: absolute; left: 6%; bottom: 10%; width: 10px; height: 10px; border-radius: 10px; background: #E50914; filter: blur(1px); animation: drift 7s ease-in infinite"></span>
+      <span style="position: absolute; left: 22%; bottom: 4%; width: 6px; height: 6px; border-radius: 6px; background: #FF9AA6; animation: drift 9s ease-in infinite 2s"></span>
+      <span style="position: absolute; left: 38%; bottom: 14%; width: 14px; height: 14px; border-radius: 14px; background: #E50914; opacity: .6; filter: blur(3px); animation: drift 11s ease-in infinite 1s"></span>
+      <span style="position: absolute; left: 55%; bottom: 6%; width: 8px; height: 8px; border-radius: 8px; background: #FFFFFF; animation: drift 8s ease-in infinite 3.5s"></span>
+      <span style="position: absolute; left: 70%; bottom: 12%; width: 12px; height: 12px; border-radius: 12px; background: #FF9AA6; filter: blur(2px); animation: drift 10s ease-in infinite .5s"></span>
+      <span style="position: absolute; left: 86%; bottom: 3%; width: 7px; height: 7px; border-radius: 7px; background: #E50914; animation: drift 7.5s ease-in infinite 4.5s"></span>
+      <span style="position: absolute; left: 94%; bottom: 18%; width: 5px; height: 5px; border-radius: 5px; background: #FFFFFF; animation: drift 9.5s ease-in infinite 6s"></span>
+    </div>
+    <div style="position: relative; flex: 1.15 1 400px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+      <span style="display: inline-flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #E3C4CB; animation: rise .7s ease both">
+        <span style="width: 8px; height: 8px; border-radius: 8px; background: #FF5D5D; animation: blink 1.4s ease-in-out infinite"></span>
+        NOW SHOWING · SEASON 01
+      </span>
+      <h1 style="margin: 0; font-family: Outfit, Inter, sans-serif; font-weight: 800; font-size: clamp(3rem, 7.5vw, 6rem); line-height: .92; letter-spacing: -0.04em; animation: rise .8s ease .1s both"><span class="shine">Manu</span><span style="color: #E50914">.</span><br><span style="color: #C9A3AC">Every dataset has a story.</span><br>I direct it.</h1>
+      <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #D2D2D2; max-width: 500px; animation: rise .8s ease .25s both">Data Engineer &amp; Creative Developer. Seven episodes of pipelines, AI systems, portfolios and business websites — and the next one is yours.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px; animation: rise .8s ease .4s both">
+        <a href="#episodes" class="pill" style="display: inline-flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: #FFFFFF; background: #E50914; text-decoration: none; padding: 14px 22px; border-radius: 999px; animation: glow 2.2s ease-in-out infinite">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z"></path></svg>Watch the work
+        </a>
+        <button type="button" class="pill" id="aboutBtn" style="font-family: Inter, sans-serif; font-size: 15px; font-weight: 600; color: #FFFFFF; background: transparent; border: 1px solid #7A2C3E; cursor: pointer; padding: 14px 22px; border-radius: 999px">About the creator</button>
+      </div>
+    </div>
+
+    <!-- NOW PLAYING STACK -->
+    <div class="now-stack" style="flex: 1 1 340px; min-width: 0; position: relative; z-index: 1; height: 430px; animation: rise .9s ease .3s both">
+      <div aria-hidden="true" style="position: absolute; left: 6%; top: 34px; width: 74%; height: 260px; border-radius: 20px; background: #6A0F1F; border: 1px solid #8A2335; animation: floatA 6s ease-in-out infinite"></div>
+      <div aria-hidden="true" style="position: absolute; right: 2%; top: 14px; width: 70%; height: 260px; border-radius: 20px; background: #4A1522; border: 1px solid #6B2535; animation: floatB 7s ease-in-out infinite"></div>
+      <div id="slides"></div>
+      <div class="now-controls" style="position: absolute; left: 10%; bottom: 0; z-index: 3; display: flex; align-items: center; gap: 10px">
+        <button type="button" class="pill" id="prevBtn" aria-label="Previous project" style="width: 48px; height: 48px; border-radius: 48px; border: 1px solid #7A2C3E; background: #3D111C; color: #FFFFFF; cursor: pointer; display: flex; align-items: center; justify-content: center">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>
+        </button>
+        <button type="button" class="pill" id="nextBtn" aria-label="Next project" style="width: 48px; height: 48px; border-radius: 48px; border: 0; background: #E50914; color: #FFFFFF; cursor: pointer; display: flex; align-items: center; justify-content: center">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+        </button>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #E3C4CB; padding-left: 6px"><span id="nowPos">01</span> / <span id="nowTotal">07</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- EPISODES -->
+  <section aria-label="Cast" style="max-width: 1200px; margin: 0 auto; padding: 8px 0 48px">
+    <div style="padding: 0 24px; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px">
+      <h2 style="margin: 0; font-family: Outfit, Inter, sans-serif; font-weight: 700; font-size: 22px; letter-spacing: -0.01em">Cast</h2>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .2em; color: #D1A9B2">STARRING IN SEASON 01</span>
+    </div>
+    <ul class="strip" style="list-style: none; margin: 0; padding: 26px 24px 10px; display: flex; gap: 18px; overflow-x: auto">
+      <li class="cast" style="flex: 0 0 auto; width: 128px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; animation: rise .6s ease 0.60s both">
+        <span class="avatar" aria-hidden="true" style="width: 96px; height: 96px; border-radius: 96px; background: #4B1426; border: 2px solid #7A2C3E; box-shadow: 0 0 0 4px #2B0B13, 0 12px 26px rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center; font-family: Outfit, Inter, sans-serif; font-weight: 700; font-size: 24px; letter-spacing: .02em; color: #F3E4DC">ADF</span>
+        <span style="font-family: Outfit, Inter, sans-serif; font-weight: 600; font-size: 15px; line-height: 1.2; color: #FFFFFF">Azure Data Factory</span>
+        <span style="font-size: 12px; line-height: 1.3; color: #D1A9B2">as The Orchestrator</span>
+      </li>
+      <li class="cast" style="flex: 0 0 auto; width: 128px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; animation: rise .6s ease 0.67s both">
+        <span class="avatar" aria-hidden="true" style="width: 96px; height: 96px; border-radius: 96px; background: #7A1424; border: 2px solid #7A2C3E; box-shadow: 0 0 0 4px #2B0B13, 0 12px 26px rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center; font-family: Outfit, Inter, sans-serif; font-weight: 700; font-size: 24px; letter-spacing: .02em; color: #F3E4DC">DB</span>
+        <span style="font-family: Outfit, Inter, sans-serif; font-weight: 600; font-size: 15px; line-height: 1.2; color: #FFFFFF">Databricks</span>
+        <span style="font-size: 12px; line-height: 1.3; color: #D1A9B2">as The Engine</span>
+      </li>
+      <li class="cast" style="flex: 0 0 auto; width: 128px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; animation: rise .6s ease 0.74s both">
+        <span class="avatar" aria-hidden="true" style="width: 96px; height: 96px; border-radius: 96px; background: #3F1A35; border: 2px solid #7A2C3E; box-shadow: 0 0 0 4px #2B0B13, 0 12px 26px rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center; font-family: Outfit, Inter, sans-serif; font-weight: 700; font-size: 24px; letter-spacing: .02em; color: #F3E4DC">DL</span>
+        <span style="font-family: Outfit, Inter, sans-serif; font-weight: 600; font-size: 15px; line-height: 1.2; color: #FFFFFF">Delta Lake</span>
+        <span style="font-size: 12px; line-height: 1.3; color: #D1A9B2">as The Vault</span>
+      </li>
+      <li class="cast" style="flex: 0 0 auto; width: 128px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; animation: rise .6s ease 0.81s both">
+        <span class="avatar" aria-hidden="true" style="width: 96px; height: 96px; border-radius: 96px; background: #5A2418; border: 2px solid #7A2C3E; box-shadow: 0 0 0 4px #2B0B13, 0 12px 26px rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center; font-family: Outfit, Inter, sans-serif; font-weight: 700; font-size: 24px; letter-spacing: .02em; color: #F3E4DC">DLT</span>
+        <span style="font-family: Outfit, Inter, sans-serif; font-weight: 600; font-size: 15px; line-height: 1.2; color: #FFFFFF">Delta Live Tables</span>
+        <span style="font-size: 12px; line-height: 1.3; color: #D1A9B2">as The Watchman</span>
+      </li>
+      <li class="cast" style="flex: 0 0 auto; width: 128px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; animation: rise .6s ease 0.88s both">
+        <span class="avatar" aria-hidden="true" style="width: 96px; height: 96px; border-radius: 96px; background: #4B1426; border: 2px solid #7A2C3E; box-shadow: 0 0 0 4px #2B0B13, 0 12px 26px rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center; font-family: Outfit, Inter, sans-serif; font-weight: 700; font-size: 24px; letter-spacing: .02em; color: #F3E4DC">MF</span>
+        <span style="font-family: Outfit, Inter, sans-serif; font-weight: 600; font-size: 15px; line-height: 1.2; color: #FFFFFF">Microsoft Fabric</span>
+        <span style="font-size: 12px; line-height: 1.3; color: #D1A9B2">as The Unifier</span>
+      </li>
+      <li class="cast" style="flex: 0 0 auto; width: 128px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; animation: rise .6s ease 0.95s both">
+        <span class="avatar" aria-hidden="true" style="width: 96px; height: 96px; border-radius: 96px; background: #7A1424; border: 2px solid #7A2C3E; box-shadow: 0 0 0 4px #2B0B13, 0 12px 26px rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center; font-family: Outfit, Inter, sans-serif; font-weight: 700; font-size: 24px; letter-spacing: .02em; color: #F3E4DC">AO</span>
+        <span style="font-family: Outfit, Inter, sans-serif; font-weight: 600; font-size: 15px; line-height: 1.2; color: #FFFFFF">Azure OpenAI</span>
+        <span style="font-size: 12px; line-height: 1.3; color: #D1A9B2">as The Oracle</span>
+      </li>
+      <li class="cast" style="flex: 0 0 auto; width: 128px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; animation: rise .6s ease 1.02s both">
+        <span class="avatar" aria-hidden="true" style="width: 96px; height: 96px; border-radius: 96px; background: #3F1A35; border: 2px solid #7A2C3E; box-shadow: 0 0 0 4px #2B0B13, 0 12px 26px rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center; font-family: Outfit, Inter, sans-serif; font-weight: 700; font-size: 24px; letter-spacing: .02em; color: #F3E4DC">CL</span>
+        <span style="font-family: Outfit, Inter, sans-serif; font-weight: 600; font-size: 15px; line-height: 1.2; color: #FFFFFF">Claude</span>
+        <span style="font-size: 12px; line-height: 1.3; color: #D1A9B2">as The Co-Director</span>
+      </li>
+      <li class="cast" style="flex: 0 0 auto; width: 128px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; animation: rise .6s ease 1.09s both">
+        <span class="avatar" aria-hidden="true" style="width: 96px; height: 96px; border-radius: 96px; background: #5A2418; border: 2px solid #7A2C3E; box-shadow: 0 0 0 4px #2B0B13, 0 12px 26px rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center; font-family: Outfit, Inter, sans-serif; font-weight: 700; font-size: 24px; letter-spacing: .02em; color: #F3E4DC">RAG</span>
+        <span style="font-family: Outfit, Inter, sans-serif; font-weight: 600; font-size: 15px; line-height: 1.2; color: #FFFFFF">RAG</span>
+        <span style="font-size: 12px; line-height: 1.3; color: #D1A9B2">as The Researcher</span>
+      </li>
+      <li class="cast" style="flex: 0 0 auto; width: 128px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; animation: rise .6s ease 1.16s both">
+        <span class="avatar" aria-hidden="true" style="width: 96px; height: 96px; border-radius: 96px; background: #4B1426; border: 2px solid #7A2C3E; box-shadow: 0 0 0 4px #2B0B13, 0 12px 26px rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center; font-family: Outfit, Inter, sans-serif; font-weight: 700; font-size: 24px; letter-spacing: .02em; color: #F3E4DC">PY</span>
+        <span style="font-family: Outfit, Inter, sans-serif; font-weight: 600; font-size: 15px; line-height: 1.2; color: #FFFFFF">Python</span>
+        <span style="font-size: 12px; line-height: 1.3; color: #D1A9B2">as The Scriptwriter</span>
+      </li>
+    </ul>
+  </section>
+
+  <section id="episodes" style="border-top: 1px solid #4A1522; padding: 56px 0 24px">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #D1A9B2">// season 01 — episode guide</span>
+        <h2 style="margin: 0; font-family: Outfit, Inter, sans-serif; font-weight: 700; font-size: clamp(1.8rem, 3.4vw, 2.6rem); letter-spacing: -0.03em">Binge the full season</h2>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px">
+        <div role="group" aria-label="Filter episodes" id="filters" style="display: flex; flex-wrap: wrap; gap: 6px">
+      </div>
+        <div style="display: flex; gap: 8px"><button type="button" id="shelfPrev" class="pill shelf-arrow" aria-label="Scroll episodes back" style="width: 48px; height: 48px; border-radius: 48px; border: 1px solid #7A2C3E; background: #3D111C; color: #FFFFFF; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button><button type="button" id="shelfNext" class="pill shelf-arrow" aria-label="Scroll episodes forward" style="width: 48px; height: 48px; border-radius: 48px; border: 1px solid #7A2C3E; background: #3D111C; color: #FFFFFF; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button></div>
+      </div>
+    </div>
+    <div id="shelf" class="strip" style="max-width: 1248px; margin: 0 auto; display: flex; gap: 16px; overflow-x: auto; padding: 30px 24px 34px">
+    </div>
+  </section>
+
+  <!-- GENRES / SERVICES -->
+  <section id="genres" style="max-width: 1200px; margin: 0 auto; padding: 40px 24px 40px; display: flex; flex-direction: column; gap: 24px">
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #D1A9B2">// what I build</span>
+      <h2 style="margin: 0; font-family: Outfit, Inter, sans-serif; font-weight: 700; font-size: clamp(1.8rem, 3.4vw, 2.6rem); letter-spacing: -0.03em">Four genres, one creator</h2>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 14px">
+      <article style="background: #3D111C; border: 1px solid #5A1D2B; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <span style="width: 44px; height: 44px; border-radius: 12px; animation: wiggle 3s ease-in-out infinite; background: #4A1522; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E50914" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"></ellipse><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"></path><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"></path></svg></span>
+        <h3 style="margin: 0; font-family: Outfit, Inter, sans-serif; font-weight: 700; font-size: 20px">Data Engineering</h3>
+        <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #E3C4CB">End-to-end pipelines on Azure — ADF, ADLS, Databricks, Delta Lake and Delta Live Tables. Clean, reliable data at any scale.</p>
+      </article>
+      <article style="background: #3D111C; border: 1px solid #5A1D2B; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <span style="width: 44px; height: 44px; border-radius: 12px; animation: wiggle 3s ease-in-out infinite; background: #6A0F1F; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E50914" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path><path d="M9 11h.01M12 11h.01M15 11h.01"></path></svg></span>
+        <h3 style="margin: 0; font-family: Outfit, Inter, sans-serif; font-weight: 700; font-size: 20px">AI &amp; RAG Systems</h3>
+        <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #E3C4CB">LLM-powered applications and Retrieval-Augmented Generation pipelines. From prototype to production — grounded in your data.</p>
+      </article>
+      <article style="background: #3D111C; border: 1px solid #5A1D2B; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <span style="width: 44px; height: 44px; border-radius: 12px; animation: wiggle 3s ease-in-out infinite; background: #4A1522; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E50914" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"></rect><path d="M8 21h8M12 18v3M7 9l3 2-3 2M13 13h4"></path></svg></span>
+        <h3 style="margin: 0; font-family: Outfit, Inter, sans-serif; font-weight: 700; font-size: 20px">Interactive Portfolios</h3>
+        <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #E3C4CB">Creative portfolio experiences beyond static pages — talking portfolios, ChatGPT-style interfaces and scroll-driven showcases, built with Claude.</p>
+      </article>
+      <article style="background: #3D111C; border: 1px solid #5A1D2B; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <span style="width: 44px; height: 44px; border-radius: 12px; animation: wiggle 3s ease-in-out infinite; background: #6A0F1F; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E50914" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"></path></svg></span>
+        <h3 style="margin: 0; font-family: Outfit, Inter, sans-serif; font-weight: 700; font-size: 20px">Business Websites</h3>
+        <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #E3C4CB">Fast, mobile-friendly websites for restaurants, shops and local businesses — from menu pages to enquiry forms that land in your inbox.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="max-width: 1200px; margin: 0 auto; padding: 40px 24px 64px">
+    <div style="border-radius: 24px; background: #F3E4DC; color: #2B0B13; border: 1px solid #D9B8A8; padding: clamp(28px, 5vw, 56px); display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 28px">
+      <div style="display: flex; flex-direction: column; gap: 12px; max-width: 620px">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500">S01 · E08 — casting now</span>
+        <h2 style="margin: 0; font-family: Outfit, Inter, sans-serif; font-weight: 800; font-size: clamp(2.2rem, 5.5vw, 4.2rem); line-height: .95; letter-spacing: -0.04em">Your project<br>is next.</h2>
+        <p style="margin: 0; font-size: 16px; line-height: 1.6">Available for freelance. Let’s build something worth showing.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 10px">
+        <a href="#start-project" data-open-form class="pill" style="display: inline-flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 600; color: #FFFFFF; background: #2B0B13; text-decoration: none; padding: 15px 26px; border-radius: 999px">Start a Project
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"></path></svg>
+        </a>
+        <a href="mailto:pcreativeai@gmail.com" style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #6A0F1F; padding: 8px 0">pcreativeai@gmail.com</a>
+      </div>
+    </div>
+  </section>
+
+  <footer style="max-width: 1200px; margin: 0 auto; padding: 0 24px 32px; display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #D1A9B2">
+    <div style="display: flex; flex-wrap: wrap; gap: 2px">
+      <a href="#episodes" class="foot-link" style="color: #E3C4CB; text-decoration: none; padding: 12px; border-radius: 999px">Episodes</a>
+      <a href="#genres" class="foot-link" style="color: #E3C4CB; text-decoration: none; padding: 12px; border-radius: 999px">Genres</a>
+      <a href="#contact" class="foot-link" style="color: #E3C4CB; text-decoration: none; padding: 12px; border-radius: 999px">Contact</a>
+    </div>
+  </footer>
+
+  <div id="projDrawer" hidden></div>
+
+  <!-- START A PROJECT FORM -->
+  <div id="formModal" hidden>
+    <div style="position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 30; display: flex; align-items: flex-start; justify-content: center; padding: 5vh 16px; overflow-y: auto">
+      <button type="button" data-form-close tabindex="-1" aria-label="Close form" style="position: fixed; top: 0; right: 0; bottom: 0; left: 0; border: 0; background: rgba(20,4,9,.82); cursor: pointer; animation: fade .3s ease both"></button>
+      <div role="dialog" aria-modal="true" aria-labelledby="formTitle" class="form-panel" style="position: relative; width: 100%; max-width: 620px; background: #330D17; border: 1px solid #5A1D2B; border-radius: 22px; box-shadow: 0 30px 80px rgba(0,0,0,.6); animation: swap .45s cubic-bezier(.2,.8,.2,1) both">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 28px 28px 0">
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #FF9AA6">S01 · E08 — casting now</span>
+            <h2 id="formTitle" style="margin: 0; font-family: Outfit, Inter, sans-serif; font-weight: 800; font-size: 32px; line-height: 1; letter-spacing: -0.03em">Start a project</h2>
+            <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #E3C4CB">Tell me what you’re building. I’ll reply by email, usually within a day.</p>
+          </div>
+          <button type="button" data-form-close aria-label="Close" style="flex: 0 0 auto; width: 44px; height: 44px; border-radius: 44px; border: 1px solid #6B2535; background: transparent; color: #FFFFFF; cursor: pointer; display: flex; align-items: center; justify-content: center">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+          </button>
+        </div>
+
+        <form id="projectForm" novalidate style="padding: 22px 28px 28px; display: flex; flex-direction: column; gap: 16px">
+          <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0">
+          <div class="form-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px">
+            <label style="display: flex; flex-direction: column; gap: 7px; font-size: 13px; font-weight: 600; color: #E3C4CB"><span>Your name <span style="color: #FF9AA6" aria-hidden="true">*</span></span><input name="name" type="text" required autocomplete="name" placeholder="Jane Smith" style="width: 100%; font-family: Inter, sans-serif; font-size: 16px; color: #FFFFFF; background: #2B0B13; border: 1px solid #6B2535; border-radius: 12px; padding: 13px 14px; outline: none"></label>
+            <label style="display: flex; flex-direction: column; gap: 7px; font-size: 13px; font-weight: 600; color: #E3C4CB"><span>Email <span style="color: #FF9AA6" aria-hidden="true">*</span></span><input name="email" type="email" required autocomplete="email" placeholder="jane@company.com" style="width: 100%; font-family: Inter, sans-serif; font-size: 16px; color: #FFFFFF; background: #2B0B13; border: 1px solid #6B2535; border-radius: 12px; padding: 13px 14px; outline: none"></label>
+            <label style="display: flex; flex-direction: column; gap: 7px; font-size: 13px; font-weight: 600; color: #E3C4CB"><span>Phone / WhatsApp</span><input name="phone" type="tel" autocomplete="tel" placeholder="Optional" style="width: 100%; font-family: Inter, sans-serif; font-size: 16px; color: #FFFFFF; background: #2B0B13; border: 1px solid #6B2535; border-radius: 12px; padding: 13px 14px; outline: none"></label>
+            <label style="display: flex; flex-direction: column; gap: 7px; font-size: 13px; font-weight: 600; color: #E3C4CB"><span>Company</span><input name="company" type="text" autocomplete="organization" placeholder="Optional" style="width: 100%; font-family: Inter, sans-serif; font-size: 16px; color: #FFFFFF; background: #2B0B13; border: 1px solid #6B2535; border-radius: 12px; padding: 13px 14px; outline: none"></label>
+            <label style="display: flex; flex-direction: column; gap: 7px; font-size: 13px; font-weight: 600; color: #E3C4CB"><span>What do you need? <span style="color: #FF9AA6" aria-hidden="true">*</span></span><select name="service" required style="width: 100%; font-family: Inter, sans-serif; font-size: 16px; color: #FFFFFF; background: #2B0B13; border: 1px solid #6B2535; border-radius: 12px; padding: 13px 14px; outline: none"><option value="">Choose one</option><option>Data Engineering</option><option>AI & RAG System</option><option>Interactive Portfolio</option><option>Analytics / Lakehouse</option><option>Business Website</option><option>Not sure yet</option></select></label>
+            <label style="display: flex; flex-direction: column; gap: 7px; font-size: 13px; font-weight: 600; color: #E3C4CB"><span>Timeline</span><select name="timeline" style="width: 100%; font-family: Inter, sans-serif; font-size: 16px; color: #FFFFFF; background: #2B0B13; border: 1px solid #6B2535; border-radius: 12px; padding: 13px 14px; outline: none"><option value="">Choose one</option><option>As soon as possible</option><option>Within 1 month</option><option>1–3 months</option><option>Flexible</option></select></label>
+          </div>
+          <label style="display: flex; flex-direction: column; gap: 7px; font-size: 13px; font-weight: 600; color: #E3C4CB"><span>Budget</span><input name="budget" type="text" placeholder="Optional — a rough range helps" style="width: 100%; font-family: Inter, sans-serif; font-size: 16px; color: #FFFFFF; background: #2B0B13; border: 1px solid #6B2535; border-radius: 12px; padding: 13px 14px; outline: none"></label>
+          <label style="display: flex; flex-direction: column; gap: 7px; font-size: 13px; font-weight: 600; color: #E3C4CB"><span>Project details <span style="color: #FF9AA6" aria-hidden="true">*</span></span><textarea name="details" required rows="5" placeholder="What are you building, who is it for, and what does success look like?" style="width: 100%; font-family: Inter, sans-serif; font-size: 16px; color: #FFFFFF; background: #2B0B13; border: 1px solid #6B2535; border-radius: 12px; padding: 13px 14px; outline: none; resize: vertical; min-height: 120px; line-height: 1.5"></textarea></label>
+          <p id="formError" role="alert" style="margin: 0; min-height: 1px; font-size: 14px; color: #FF9AA6"></p>
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px">
+            <button type="submit" id="formSubmit" class="pill" style="display: inline-flex; align-items: center; gap: 10px; font-family: Inter, sans-serif; font-size: 16px; font-weight: 700; color: #FFFFFF; background: #E50914; border: 0; cursor: pointer; padding: 15px 28px; border-radius: 999px; min-height: 48px">Send request
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+            </button>
+            <span style="font-size: 13px; color: #D1A9B2">Or email <a href="mailto:pcreativeai@gmail.com" style="color: #FFFFFF">pcreativeai@gmail.com</a></span>
+          </div>
+        </form>
+
+        <div id="formSuccess" hidden style="padding: 34px 28px 36px; display: flex; flex-direction: column; align-items: flex-start; gap: 14px">
+          <span style="width: 56px; height: 56px; border-radius: 56px; background: #46D369; color: #2B0B13; display: flex; align-items: center; justify-content: center; animation: swap .5s ease both"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+          <h3 style="margin: 0; font-family: Outfit, Inter, sans-serif; font-weight: 800; font-size: 28px; letter-spacing: -0.02em">Request received.</h3>
+          <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #E5E5E5">Thanks <span id="successName"></span> — your project is in the queue. I’ll get back to you at <span id="successEmail" style="color: #FFFFFF; font-weight: 600"></span> soon.</p>
+          <button type="button" data-form-close class="pill" style="margin-top: 6px; font-family: Inter, sans-serif; font-size: 15px; font-weight: 700; color: #FFFFFF; background: #6B2535; border: 0; cursor: pointer; padding: 13px 24px; border-radius: 999px">Back to the site</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="aboutDrawer" hidden>
+    <div style="position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 20; display: flex; justify-content: flex-end">
+      <button type="button" data-close aria-label="Close panel" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; border: 0; background: rgba(20,4,9,.78); cursor: pointer; animation: fade .3s ease both"></button>
+      <div role="dialog" aria-modal="true" aria-label="About Manu" class="drawer-panel" style="position: relative; width: min(460px, 100%); height: 100%; overflow-y: auto; background: #330D17; border-left: 1px solid #5A1D2B; padding: 28px 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px; animation: drawer .45s cubic-bezier(.2,.8,.2,1) both">
+        <button type="button" data-close aria-label="Close" style="align-self: flex-end; width: 44px; height: 44px; border-radius: 44px; border: 1px solid #6B2535; background: transparent; color: #FFFFFF; cursor: pointer; display: flex; align-items: center; justify-content: center">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+        </button>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #FF9AA6">// about the creator</span>
+        <h2 style="margin: 0; font-family: Outfit, Inter, sans-serif; font-weight: 800; font-size: 38px; line-height: 1; letter-spacing: -0.03em">Half engineer,<br>half storyteller.</h2>
+        <p style="margin: 0; font-size: 16px; line-height: 1.7; color: #E5E5E5">I work where data infrastructure meets the people who use it — from lakehouses that unify messy systems to AI assistants that answer in plain language, to portfolios that talk back.</p>
+        <p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7; color: #E3C4CB">genres: data engineering · ai &amp; rag · analytics · interactive portfolios</p>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const ACCENT='#E50914';
+const BGS={'Data Engineering':'#4B1426','AI / RAG':'#7A1424','Creative Portfolio':'#3F1A35','Analytics':'#5A2418','Websites':'#6E3A12'};
+const PROJECTS=[
+{num:'01',category:'Data Engineering',headline:'70% faster processing',title:'Medical Data Platform',desc:'HIPAA-aligned Delta Lake pipeline on Azure. Reduced data processing time by 70% and enabled real-time clinical dashboards for 200+ clinicians.',tags:['Databricks','Delta Lake','ADF','ADLS','Python']},
+{num:'02',category:'Creative Portfolio',headline:'Voice-interactive',title:'Talking Portfolio',desc:'Voice-interactive portfolio where visitors ask questions and get spoken answers — built for a creative director who wanted something unforgettable.',tags:['Claude','Web Speech API','OpenAI']},
+{num:'03',category:'AI / RAG',headline:'45% less consult time',title:'AgriTech RAG Assistant',desc:'RAG chatbot trained on farming datasets and agronomic research. Reduced specialist consultation time by 45% for field advisors.',tags:['LLMs','RAG','Python','Azure OpenAI']},
+{num:'04',category:'Creative Portfolio',headline:'Booked out 6 weeks',title:'ChatGPT-Style Portfolio',desc:'Portfolio built as a conversational interface — visitors type questions, the site answers in character. Booked the client out 6 weeks post-launch.',tags:['Claude','OpenAI','Framer Motion']},
+{num:'05',category:'Analytics',headline:'40,000+ students',title:'Student Analytics Lakehouse',desc:'Unified student data across 12 systems into a Microsoft Fabric lakehouse. Enabled predictive retention modelling for 40,000+ students.',tags:['Microsoft Fabric','Delta Live Tables','SQL','Python']},
+{num:'06',category:'AI / RAG',headline:'65% tickets deflected',title:'AI Support Chatbot',desc:'GPT-4 chatbot trained on product docs and FAQs. Deflected 65% of tier-1 support tickets on day one of deployment.',tags:['OpenAI','GPT-4']},
+{num:'07',category:'Websites',headline:'Live for a local pizzeria',title:'Pizza Shop Website',desc:'A mobile-first website for a local pizza shop — built to show off the menu and make it easy for hungry customers to find the shop, call and visit.',tags:['Responsive Design','HTML & CSS','JavaScript','Claude']}
+];
+const GROUPS={'All':null,'AI & RAG':['AI / RAG'],'Data & Analytics':['Data Engineering','Analytics'],'Portfolios':['Creative Portfolio'],'Websites':['Websites']};
+let now=0, filter='All', timer=null;
+const $=id=>document.getElementById(id);
+
+/* hero slides */
+const slidesEl=$('slides');
+slidesEl.innerHTML=PROJECTS.map((p,i)=>`
+<button type="button" class="slide" data-num="${p.num}" aria-label="Now playing: ${p.title}" style="position: absolute; left: 10%; right: 6%; top: 60px; height: 290px; border-radius: 22px; border: 1px solid #7A2C3E; background: ${BGS[p.category]}; color: #FFFFFF; text-align: left; cursor: pointer; padding: 26px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 30px 60px rgba(0,0,0,.5); font-family: Inter, sans-serif; transition: opacity .5s ease, transform .5s cubic-bezier(.2,.8,.2,1)">
+  <span style="display: flex; justify-content: space-between; align-items: center; gap: 10px; width: 100%">
+    <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #FF9AA6">S01 · E${p.num}</span>
+    <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #D2D2D2; border: 1px solid rgba(255,255,255,.2); border-radius: 999px; padding: 4px 10px">${p.category}</span>
+  </span>
+  <span style="display: flex; flex-direction: column; gap: 10px">
+    <span class="slide-title" style="font-family: Outfit, Inter, sans-serif; font-weight: 700; font-size: 32px; line-height: 1; letter-spacing: -0.02em">${p.title}</span>
+    <span style="font-size: 14px; color: #46D369; font-weight: 600">${p.headline}</span>
+  </span>
+  <span class="dots" style="display: flex; gap: 6px">${PROJECTS.map(()=>'<span style="height: 4px; border-radius: 4px; transition: width .4s, background .4s"></span>').join('')}</span>
+</button>`).join('');
+const slideEls=[...slidesEl.querySelectorAll('.slide')];
+function showSlide(){
+  slideEls.forEach((el,i)=>{
+    const on=i===now;
+    el.style.opacity=on?'1':'0';
+    el.style.transform=on?'none':'translateX(28px) scale(.97)';
+    el.style.zIndex=on?'2':'1';
+    el.style.pointerEvents=on?'auto':'none';
+    el.tabIndex=on?0:-1;
+    el.setAttribute('aria-hidden',on?'false':'true');
+    [...el.querySelectorAll('.dots span')].forEach((d,j)=>{d.style.width=j===now?'26px':'10px';d.style.background=j===now?ACCENT:'rgba(255,255,255,.3)';});
+  });
+  $('nowPos').textContent=PROJECTS[now].num;$('nowTotal').textContent=String(PROJECTS.length).padStart(2,'0');
+}
+function start(){clearInterval(timer);timer=setInterval(()=>{now=(now+1)%PROJECTS.length;showSlide();},4500);}
+function go(step){now=(now+step+PROJECTS.length)%PROJECTS.length;showSlide();start();}
+$('prevBtn').addEventListener('click',()=>go(-1));
+$('nextBtn').addEventListener('click',()=>go(1));
+slideEls.forEach(el=>el.addEventListener('click',()=>{if(swiped){swiped=false;return;}openProject(el.dataset.num);}));
+/* swipe the hero cards on touch screens */
+let sx=null, sy=null, swiped=false;
+slidesEl.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY;swiped=false;},{passive:true});
+slidesEl.addEventListener('touchend',e=>{
+  if(sx===null) return;
+  const dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
+  if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)){swiped=true;go(dx<0?1:-1);}
+  sx=null;
+},{passive:true});
+
+showSlide();start();
+
+/* filters + shelf */
+function renderFilters(){
+  const base="font-family: Inter, sans-serif; font-size: 14px; font-weight: 600; padding: 11px 16px; min-height: 44px; border-radius: 999px; cursor: pointer; ";
+  $('filters').innerHTML=Object.keys(GROUPS).map(k=>{const on=k===filter;return `<button type="button" class="pill" data-f="${k}" aria-pressed="${on}" style="${base+(on?`background: ${ACCENT}; color: #FFFFFF; border: 1px solid ${ACCENT};`:'background: #3D111C; color: #D2D2D2; border: 1px solid #6B2535;')}">${k.replace('&','&amp;')}</button>`}).join('');
+  $('filters').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.f;renderFilters();renderShelf();shelf.scrollLeft=0;updateArrows();}));
+}
+function renderShelf(){
+  const g=GROUPS[filter];
+  const list=g?PROJECTS.filter(p=>g.includes(p.category)):PROJECTS;
+  $('shelf').innerHTML=list.map((p,i)=>`
+<button type="button" class="card" data-num="${p.num}" aria-label="Open episode ${p.num}: ${p.title}" style="position: relative; flex: 0 0 auto; width: 270px; min-height: 300px; border-radius: 18px; border: 1px solid #5A1D2B; background: #3D111C; color: #FFFFFF; text-align: left; cursor: pointer; padding: 0; overflow: hidden; display: flex; flex-direction: column; font-family: Inter, sans-serif; animation: swap .6s cubic-bezier(.2,.8,.2,1) ${(i*0.08).toFixed(2)}s both">
+  <span style="position: relative; display: block; width: 100%; height: 140px; background: ${BGS[p.category]}; overflow: hidden">
+    <span aria-hidden="true" style="position: absolute; right: 12px; bottom: -22px; font-family: Outfit, Inter, sans-serif; font-weight: 800; font-size: 120px; line-height: 1; color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,.22)">${p.num}</span>
+    <span style="position: absolute; left: 16px; top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #FF9AA6">S01 · E${p.num}</span>
+  </span>
+  <span style="padding: 18px; display: flex; flex-direction: column; gap: 8px; flex-grow: 1">
+    <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #E3C4CB">${p.category}</span>
+    <span style="font-family: Outfit, Inter, sans-serif; font-weight: 700; font-size: 21px; line-height: 1.1; letter-spacing: -0.01em">${p.title}</span>
+    <span style="font-size: 13px; font-weight: 600; color: #46D369">${p.headline}</span>
+    <span class="peek" style="font-size: 12px; color: #E3C4CB; font-family: 'JetBrains Mono', monospace">${p.tags.join(' · ')}</span>
+  </span>
+</button>`).join('');
+  $('shelf').querySelectorAll('.card').forEach(b=>b.addEventListener('click',()=>openProject(b.dataset.num)));
+}
+renderFilters();renderShelf();
+/* episode shelf arrows */
+const shelf=$('shelf');
+function updateArrows(){
+  const max=shelf.scrollWidth-shelf.clientWidth-2;
+  $('shelfPrev').disabled=shelf.scrollLeft<=2;
+  $('shelfNext').disabled=shelf.scrollLeft>=max;
+}
+let shelfAnim=null;
+function scrollShelf(dir){
+  const card=shelf.querySelector('.card');
+  const step=card?card.offsetWidth+16:286;
+  const n=Math.max(1,Math.floor((shelf.clientWidth-40)/step));
+  const max=shelf.scrollWidth-shelf.clientWidth;
+  const from=shelf.scrollLeft;
+  const to=Math.max(0,Math.min(max,from+dir*step*n));
+  if(to===from){updateArrows();return;}
+  cancelAnimationFrame(shelfAnim);
+  shelf.style.scrollSnapType='none';
+  const t0=performance.now(), dur=420;
+  const ease=t=>1-Math.pow(1-t,3);
+  const tick=now=>{
+    const k=Math.min(1,(now-t0)/dur);
+    shelf.scrollLeft=from+(to-from)*ease(k);
+    if(k<1){shelfAnim=requestAnimationFrame(tick);}
+    else{shelf.scrollLeft=to;shelf.style.scrollSnapType='';updateArrows();}
+  };
+  shelfAnim=requestAnimationFrame(tick);
+}
+$('shelfPrev').addEventListener('click',()=>scrollShelf(-1));
+$('shelfNext').addEventListener('click',()=>scrollShelf(1));
+shelf.addEventListener('scroll',updateArrows,{passive:true});
+window.addEventListener('resize',updateArrows);
+updateArrows();
+
+/* drawers */
+let lastFocus=null;
+function closeAll(){
+  $('projDrawer').hidden=true;$('aboutDrawer').hidden=true;
+  document.body.style.overflow='';
+  if(lastFocus) lastFocus.focus();
+}
+function openProject(num){
+  const p=PROJECTS.find(x=>x.num===num);
+  lastFocus=document.activeElement;
+  $('aboutDrawer').hidden=true;
+  const d=$('projDrawer');
+  d.innerHTML=`
+<div style="position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 20; display: flex; justify-content: flex-end">
+  <button type="button" data-close aria-label="Close panel" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; border: 0; background: rgba(20,4,9,.78); cursor: pointer; animation: fade .3s ease both"></button>
+  <div role="dialog" aria-modal="true" aria-label="${p.title}" class="drawer-panel" style="position: relative; width: min(460px, 100%); height: 100%; overflow-y: auto; background: #330D17; border-left: 1px solid #5A1D2B; display: flex; flex-direction: column; animation: drawer .45s cubic-bezier(.2,.8,.2,1) both">
+    <div style="position: relative; height: 220px; flex: 0 0 auto; background: ${BGS[p.category]}; overflow: hidden">
+      <span aria-hidden="true" style="position: absolute; right: 16px; bottom: -36px; font-family: Outfit, Inter, sans-serif; font-weight: 800; font-size: 200px; line-height: 1; color: transparent; -webkit-text-stroke: 2px rgba(255,255,255,.2)">${p.num}</span>
+      <button type="button" data-close aria-label="Close" style="position: absolute; top: 14px; right: 14px; width: 44px; height: 44px; border-radius: 44px; border: 1px solid rgba(255,255,255,.25); background: rgba(43,11,19,.6); color: #FFFFFF; cursor: pointer; display: flex; align-items: center; justify-content: center">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      </button>
+      <span style="position: absolute; left: 24px; top: 20px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #FF9AA6">S01 · E${p.num}</span>
+    </div>
+    <div style="padding: 24px; display: flex; flex-direction: column; gap: 16px">
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E3C4CB">${p.category}</span>
+      <h2 style="margin: 0; font-family: Outfit, Inter, sans-serif; font-weight: 800; font-size: 34px; line-height: 1; letter-spacing: -0.03em">${p.title}</h2>
+      <span style="font-size: 15px; font-weight: 600; color: #46D369">${p.headline}</span>
+      <p style="margin: 0; font-size: 16px; line-height: 1.65; color: #E5E5E5">${p.desc}</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px">${p.tags.map(t=>`<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E5E5E5; background: #4A1522; border: 1px solid #6B2535; border-radius: 999px; padding: 5px 11px">${t}</span>`).join('')}</div>
+      <a href="#start-project" data-open-form data-project="${p.title}" class="pill" style="align-self: flex-start; margin-top: 8px; font-size: 15px; font-weight: 600; color: #FFFFFF; background: ${ACCENT}; text-decoration: none; padding: 14px 22px; border-radius: 999px">Build something like this</a>
+    </div>
+  </div>
+</div>`;
+  d.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',closeAll));
+  d.hidden=false;document.body.style.overflow='hidden';
+  d.querySelector('[aria-label="Close"]').focus();
+}
+$('aboutBtn').addEventListener('click',()=>{
+  lastFocus=document.activeElement;
+  $('projDrawer').hidden=true;$('aboutDrawer').hidden=false;document.body.style.overflow='hidden';
+  $('aboutDrawer').querySelector('[aria-label="Close"]').focus();
+});
+$('aboutDrawer').querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',closeAll));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&(!$('projDrawer').hidden||!$('aboutDrawer').hidden))closeAll();});
+/* start-a-project form → emailed to pcreativeai@gmail.com via FormSubmit */
+const FORM_ENDPOINT='https://formsubmit.co/ajax/pcreativeai@gmail.com';
+const formModal=$('formModal'), projectForm=$('projectForm');
+let formReturn=null;
+function openForm(projectTitle){
+  formReturn=document.activeElement;
+  $('projDrawer').hidden=true;$('aboutDrawer').hidden=true;
+  projectForm.hidden=false;$('formSuccess').hidden=true;$('formError').textContent='';
+  if(projectTitle){
+    const d=projectForm.elements.details;
+    if(!d.value) d.value='I’d like something similar to “'+projectTitle+'”. ';
+  }
+  formModal.hidden=false;document.body.style.overflow='hidden';
+  setTimeout(()=>projectForm.elements.name.focus(),50);
+}
+function closeForm(){
+  formModal.hidden=true;document.body.style.overflow='';
+  if(formReturn&&document.contains(formReturn)) formReturn.focus();
+}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-open-form]');
+  if(t){e.preventDefault();openForm(t.dataset.project||'');}
+});
+formModal.querySelectorAll('[data-form-close]').forEach(b=>b.addEventListener('click',closeForm));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!formModal.hidden)closeForm();});
+projectForm.addEventListener('input',e=>{if(e.target.getAttribute('aria-invalid')==='true'&&e.target.checkValidity())e.target.removeAttribute('aria-invalid');});
+projectForm.addEventListener('submit',async e=>{
+  e.preventDefault();
+  const err=$('formError'); err.textContent='';
+  let firstBad=null;
+  [...projectForm.querySelectorAll('[required]')].forEach(f=>{
+    const ok=f.value.trim()!==''&&f.checkValidity();
+    if(!ok){f.setAttribute('aria-invalid','true');firstBad=firstBad||f;} else f.removeAttribute('aria-invalid');
+  });
+  if(firstBad){
+    err.textContent=firstBad.type==='email'&&firstBad.value?'Please enter a valid email address.':'Please fill in the required fields marked *.';
+    firstBad.focus();return;
+  }
+  if(projectForm.elements._honey.value) return;
+  const f=projectForm.elements;
+  const payload={
+    _subject:'New project request from '+f.name.value.trim(),
+    _template:'table',
+    _captcha:'false',
+    _replyto:f.email.value.trim(),
+    Name:f.name.value.trim(),
+    Email:f.email.value.trim(),
+    'Phone / WhatsApp':f.phone.value.trim()||'—',
+    Company:f.company.value.trim()||'—',
+    Service:f.service.value,
+    Timeline:f.timeline.value||'—',
+    Budget:f.budget.value.trim()||'—',
+    'Project details':f.details.value.trim()
+  };
+  const btn=$('formSubmit'); const label=btn.innerHTML;
+  btn.disabled=true;btn.style.opacity='.7';btn.textContent='Sending…';
+  try{
+    const res=await fetch(FORM_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)});
+    const data=await res.json().catch(()=>({}));
+    if(!res.ok||String(data.success)==='false') throw new Error(data.message||'Send failed');
+    $('successName').textContent=payload.Name.split(' ')[0];
+    $('successEmail').textContent=payload.Email;
+    projectForm.reset();projectForm.hidden=true;$('formSuccess').hidden=false;
+    $('formSuccess').querySelector('[data-form-close]').focus();
+  }catch(ex){
+    const body=Object.entries(payload).filter(([k])=>!k.startsWith('_')).map(([k,v])=>k+': '+v).join('\n');
+    err.innerHTML='Couldn’t send just now. <a href="mailto:pcreativeai@gmail.com?subject='+encodeURIComponent(payload._subject)+'&body='+encodeURIComponent(body)+'" style="color:#FFFFFF">Send it by email instead</a>.';
+  }finally{
+    btn.disabled=false;btn.style.opacity='';btn.innerHTML=label;
+  }
+});
+
+/* in-page links: custom smooth scroll (works on iPhone/Android), mark the chosen link, glimpse the section */
+let navAnim=null;
+function scrollToY(y,done){
+  const se=document.scrollingElement||document.documentElement;
+  const from=window.pageYOffset||se.scrollTop;
+  const max=Math.max(se.scrollHeight,document.body.scrollHeight)-window.innerHeight;
+  const to=Math.max(0,Math.min(max,y));
+  cancelAnimationFrame(navAnim);
+  const dist=to-from;
+  if(Math.abs(dist)<2){window.scrollTo(0,to);done&&done();return;}
+  const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const dur=reduce?0:Math.min(900,Math.max(380,Math.abs(dist)*0.45));
+  const t0=performance.now(), ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+  const tick=now=>{
+    const k=dur?Math.min(1,(now-t0)/dur):1;
+    const y2=from+dist*ease(k);
+    window.scrollTo(0,y2); se.scrollTop=y2; document.body.scrollTop=y2;
+    if(k<1) navAnim=requestAnimationFrame(tick); else done&&done();
+  };
+  navAnim=requestAnimationFrame(tick);
+}
+function spotlight(sec){
+  sec.classList.remove('spotlight'); void sec.offsetWidth;
+  sec.classList.add('spotlight');
+  setTimeout(()=>sec.classList.remove('spotlight'),1900);
+}
+document.addEventListener('click',e=>{
+  const a=e.target.closest('a[href^="#"]');
+  if(!a||a.hasAttribute('data-open-form')) return;
+  const id=a.getAttribute('href').slice(1);
+  const sec=id?document.getElementById(id):null;
+  if(!sec) return;
+  e.preventDefault();
+  if(a.classList.contains('foot-link')){
+    document.querySelectorAll('.foot-link').forEach(l=>l.classList.toggle('is-active',l===a));
+    a.classList.remove('tap'); void a.offsetWidth; a.classList.add('tap');
+  }
+  const y=sec.getBoundingClientRect().top+(window.pageYOffset||document.documentElement.scrollTop)-8;
+  scrollToY(id==='top'?0:y,()=>{
+    if(id!=='top') spotlight(sec);
+    try{history.replaceState(null,'','#'+id);}catch(_){}
+  });
+});
+// stop the animation if the visitor starts scrolling themselves
+['touchstart','wheel'].forEach(ev=>window.addEventListener(ev,()=>cancelAnimationFrame(navAnim),{passive:true}));
+</script>
+</body>
+</html>
